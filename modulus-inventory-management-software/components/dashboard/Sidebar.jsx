@@ -9,27 +9,27 @@ export default function Sidebar() {
     const inventoryLinks = [
         {
             title: "Items",
-            href: "/dashboard/inventory/items/new",
+            href: "/dashboard/inventory",
         },
         {
             title: "Categories",
-            href: "/dashboard/inventory/categories/new",
+            href: "/dashboard/inventory",
         },
         {
             title: "Brands",
-            href: "/dashboard/inventory/brands/new",
+            href: "/dashboard/inventory",
         },
         {
             title: "Units",
-            href: "/dashboard/inventory/units/new",
+            href: "/dashboard/inventory",
         },
         {
             title: "Warehouse",
-            href: "/dashboard/inventory/warehouse/new",
+            href: "/dashboard/inventory",
         },
         {
             title: "Inventory Adjusments",
-            href: "/dashboard/inventory/adjusments/new",
+            href: "/dashboard/inventory",
         },
     ];
 
@@ -83,7 +83,7 @@ export default function Sidebar() {
                 </div>
                 {/* Links */}
                 <nav className="flex flex-col gap-3 px-3 py-6">
-                    <Link className="flex items-center p-2 space-x-2 bg-indigo-400 rounded-md text-slate-50" href="#">
+                    <Link className="flex items-center p-2 space-x-2 bg-indigo-400 rounded-md text-slate-50" href="/dashboard/home/overview">
                         <Home className="w-4 h-4" />
                         <span>Home</span>
                     </Link>
