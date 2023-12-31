@@ -5,7 +5,7 @@ import FormHeader from "@/components/dashboard/FormHeader";
 import TextInput from "@/components/FormInputs/TextInput";
 import { useState } from "react";
 import SubmitButton from "@/components/FormInputs/SubmitButton";
-import TextareaInput from "@/components/FormInputs/TextareaInput";
+import { toast } from "react-hot-toast";
 
 export default function NewBrand() {
     const { register, handleSubmit, reset, formState: { errors } } = useForm();
@@ -22,12 +22,13 @@ export default function NewBrand() {
                 body: JSON.stringify(data)
             })
             if (response.ok) {
-                console.log(response);
                 setLoading(false);
+                toast.success('New Brand save Successfully!');
                 reset();
             }
         } catch (error) {
             setLoading(false);
+            toast.error('OOPs, Sorry. Something is wrong here.');
             console.log(error);
         }
     }

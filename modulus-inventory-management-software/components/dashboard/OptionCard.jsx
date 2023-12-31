@@ -10,7 +10,7 @@ export default function OptionCard({ item }) {
             <div className="flex flex-col items-center justify-center gap-4 p-6 bg-white rounded-sm shadow-md hover:shadow-lg">
                 <h2 className="text-xl font-semibold">{item.title}</h2>
                 <div className="">
-                    <Icon strokeWidth=".5px" className="w-36 h-36" />
+                    <Icon strokeWidth=".5px" className="w-32 h-32" />
                 </div>
                 <p className="line-clamp-1">
                     {item.description}

@@ -1,9 +1,9 @@
 import React from 'react'
 
-export default function Adjusments() {
+export default function adjustments() {
     return (
         <div>
-            <h2>Adjusments</h2>
+            <h2>adjustments</h2>
         </div>
     )
 }

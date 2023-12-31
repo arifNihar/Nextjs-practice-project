@@ -7,7 +7,10 @@ import { useState } from "react";
 import SubmitButton from "@/components/FormInputs/SubmitButton";
 import TextareaInput from "@/components/FormInputs/TextareaInput";
 import SelectInput from "@/components/FormInputs/SelectInput";
-import { UploadButton } from "@/lib/uploadthing";
+import { UploadButton, UploadDropzone } from "@/lib/uploadthing";
+import Image from "next/image";
+import { Pencil } from "lucide-react";
+import ImageInput from "@/components/FormInputs/ImageInput";
 
 export default function NewItem() {
     const [imageUrl, setImageUrl] = useState("");
@@ -271,21 +274,7 @@ export default function NewItem() {
                             className="w-full"
                             errors={errors}
                         />
-                        <div className="w-full">
-                            <UploadButton
-                                endpoint="imageUploader"
-                                onClientUploadComplete={(res) => {
-                                    // Do something with the response
-                                    setImageUrl(res[0].url);
-                                    console.log("Files: ", res[0].url);
-                                    alert("Upload Completed");
-                                }}
-                                onUploadError={(error) => {
-                                    // Do something with the error.
-                                    alert(`ERROR! ${error.message}`);
-                                }}
-                            />
-                        </div>
+                        <ImageInput label="Item Image" imageUrl={imageUrl} setImageUrl={setImageUrl} endpoint="imageUploader" />
                         <TextareaInput
                             name="description"
                             label="Item Description"

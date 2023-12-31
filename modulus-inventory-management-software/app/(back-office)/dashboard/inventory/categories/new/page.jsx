@@ -6,6 +6,7 @@ import TextInput from "@/components/FormInputs/TextInput";
 import { useState } from "react";
 import SubmitButton from "@/components/FormInputs/SubmitButton";
 import TextareaInput from "@/components/FormInputs/TextareaInput";
+import { toast } from "react-hot-toast";
 
 export default function NewCategory() {
     const { register, handleSubmit, reset, formState: { errors } } = useForm();
@@ -22,12 +23,13 @@ export default function NewCategory() {
                 body: JSON.stringify(data)
             })
             if (response.ok) {
-                console.log(response);
                 setLoading(false);
+                toast.success('Category save Successfully!');
                 reset();
             }
         } catch (error) {
             setLoading(false);
+            toast.error('OOPs, Sorry. Something is wrong here.');
             console.log(error);
         }
     }

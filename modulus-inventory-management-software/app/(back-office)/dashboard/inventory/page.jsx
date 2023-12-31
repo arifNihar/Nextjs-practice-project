@@ -48,11 +48,11 @@ export default function Inventory() {
       enabled: true,
     },
     {
-      title: "Adjustments",
-      description: "Bundle different items together and sell them as kits",
+      title: "Inventory Adjustments",
+      description: "Transfer stock from the main warehouse",
       icon: Puzzle,
-      link: "/dashboard/inventory/adjusments/new",
-      link_title: "New Composite Items",
+      link: "/dashboard/inventory/adjustments/new",
+      link_title: "New Adjustments",
       enabled: true,
     },
     {
@@ -68,7 +68,7 @@ export default function Inventory() {
   return (
     <div>
       <FixedHeader newLink="/dashboard/inventory" />
-      <div className="grid gap-6 px-16 py-8 grid-col-1 lg:grid-cols-2">
+      <div className="grid gap-6 px-16 py-8 grid-col-1 lg:grid-cols-3 md:grid-cols-2">
         {itemGroupsData.map((item, idx) => {
           return (
             <OptionCard item={item} key={idx} />
