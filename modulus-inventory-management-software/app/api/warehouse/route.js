@@ -9,7 +9,24 @@ export async function POST(req) {
             data: { title, location, type, description }
         });
 
-        console.log(warehouse);
+        return NextResponse.json(warehouse);
+    } catch (error) {
+        return NextResponse.json({
+            error,
+            message: "Faild to create a warehouse"
+        }, {
+            status: 500
+        })
+    }
+}
+
+export async function GET(req) {
+    try {
+        const warehouse = await db.warehouse.findMany({
+            orderBy: {
+                created_at: "desc",
+            }
+        });
         return NextResponse.json(warehouse);
     } catch (error) {
         return NextResponse.json({

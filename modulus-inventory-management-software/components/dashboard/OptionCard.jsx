@@ -15,11 +15,26 @@ export default function OptionCard({ item }) {
                 <p className="line-clamp-1">
                     {item.description}
                 </p>
-                {item.enabled ? (
-                    <Link href={item.link} className="inline-flex items-center px-3 py-2 space-x-2 text-white bg-indigo-500 rounded-sm">{item.link_title}</Link>
+                {item.title === "Warehouse" ? (
+                    <div className="flex flex-row items-center justify-between gap-3">
+                        {item.enabled ? (
+                            <Link href={item.link} className="inline-flex items-center px-3 py-2 space-x-2 text-white bg-indigo-500 rounded-sm">{item.link_title}</Link>
+
+                        ) : (
+                            <button className="inline-flex items-center px-3 py-2 space-x-2 text-white bg-indigo-500 rounded-sm">Enable</button>
+                        )}
+                        <Link href="/dashboard/inventory/warehouse/type" className="inline-flex items-center px-3 py-2 space-x-2 text-white rounded-sm bg-cyan-500">Add New Type</Link>
+
+                    </div>
                 ) : (
-                    <button className="inline-flex items-center px-3 py-2 space-x-2 text-white bg-indigo-500 rounded-sm">Enable</button>
+                    item.enabled ? (
+                        <Link href={item.link} className="inline-flex items-center px-3 py-2 space-x-2 text-white bg-indigo-500 rounded-sm">{item.link_title}</Link>
+
+                    ) : (
+                        <button className="inline-flex items-center px-3 py-2 space-x-2 text-white bg-indigo-500 rounded-sm">Enable</button>
+                    )
                 )}
+
             </div>
         </div>
     )

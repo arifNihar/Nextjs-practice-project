@@ -3,16 +3,17 @@ import { NextResponse } from 'next/server';
 
 export async function POST(req) {
     try {
-        const { title } = await req.json();
+        const { title, description } = await req.json();
 
-        const brand = await db.brands.create({
-            data: { title }
+        const warehouse_type = await db.warehouseType.create({
+            data: { title, description }
         });
-        return NextResponse.json(brand);
+
+        return NextResponse.json(warehouse_type);
     } catch (error) {
         return NextResponse.json({
             error,
-            message: "Faild to create a brand"
+            message: "Faild to create a warehouse"
         }, {
             status: 500
         })
@@ -21,17 +22,16 @@ export async function POST(req) {
 
 export async function GET(req) {
     try {
-        const brand = await db.brands.findMany({
+        const warehouse_type = await db.warehouseType.findMany({
             orderBy: {
                 created_at: "desc",
             }
         });
-
-        return NextResponse.json(brand);
+        return NextResponse.json(warehouse_type);
     } catch (error) {
         return NextResponse.json({
             error,
-            message: "Faild to create a brand"
+            message: "Faild to create a warehouse"
         }, {
             status: 500
         })

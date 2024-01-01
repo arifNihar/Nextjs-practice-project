@@ -8,7 +8,25 @@ export async function POST(req) {
         const unit = await db.units.create({
             data: { title, abbreviation }
         });
-        console.log(unit);
+        return NextResponse.json(unit);
+    } catch (error) {
+        return NextResponse.json({
+            error,
+            message: "Faild to create a unit"
+        }, {
+            status: 500
+        })
+    }
+}
+
+export async function GET(req) {
+    try {
+        const unit = await db.units.findMany({
+            orderBy: {
+                created_at: "desc",
+            }
+        });
+
         return NextResponse.json(unit);
     } catch (error) {
         return NextResponse.json({

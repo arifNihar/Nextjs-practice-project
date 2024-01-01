@@ -8,36 +8,37 @@ import SubmitButton from "@/components/FormInputs/SubmitButton";
 import TextareaInput from "@/components/FormInputs/TextareaInput";
 import { makePostRequest } from "@/lib/apiRequest";
 
-export default function NewCategory() {
+export default function NewWarehouseType() {
     const { register, handleSubmit, reset, formState: { errors } } = useForm();
     const [loading, setLoading] = useState(false);
 
     const onSubmit = async (data) => {
         const baseUrl = "http://localhost:3000";
-        makePostRequest(setLoading, `${baseUrl}/api/categories`, data, 'Category', reset);
+        makePostRequest(setLoading, `${baseUrl}/api/warehouse/type`, data, 'Warehouse Type', reset);
     }
 
     return (
         <div>
-            <FormHeader title="New Category" href="/dashboard/inventory" />
+            <FormHeader title="New Warehouse" href="/dashboard/inventory" />
             <div className="w-full max-w-4xl p-4 mx-auto my-3 bg-white border border-gray-200 rounded-lg shadow sm:p-6 md:p-8 dark:bg-gray-800 dark:border-gray-700">
 
                 <form onSubmit={handleSubmit(onSubmit)} >
                     <div className="grid gap-4 sm:grid-cols-2 sm:gap-6">
                         <TextInput
                             name="title"
-                            label="Category Name"
+                            label="Warehouse Type Name"
                             id="title"
                             type="text"
                             register={register}
                             isRequired={true}
-                            placeholder="Type the Category Name"
+                            placeholder="Type the Warehouse Type Name"
                             className="sm:col-span-2"
                             errors={errors}
                         />
+
                         <TextareaInput
                             name="description"
-                            label="Category Description"
+                            label="Warehouse Type Description"
                             id="description"
                             register={register}
                             isRequired={true}
@@ -45,7 +46,7 @@ export default function NewCategory() {
                             errors={errors}
                         />
                     </div>
-                    <SubmitButton isLoading={loading} title="Category" />
+                    <SubmitButton isLoading={loading} title="Warehouse Type" />
                 </form>
             </div >
         </div >

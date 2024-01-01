@@ -2,12 +2,12 @@ import DataTable from '@/components/dashboard/DataTable'
 import FixedHeader from '@/components/dashboard/FixedHeader'
 import { getData } from '@/lib/getData';
 
-export default async function Items() {
-    const data = await getData('items');
-    const columnNames = ['title', 'sku', 'barcode', 'qty', 'buying_price', 'selling_price'];
+export default async function Suppliers() {
+    const data = await getData('suppliers');
+    const columnNames = ['name', 'phone', 'email', 'address'];
     return (
         <div>
-            <FixedHeader title="Items" newLink="/dashboard/inventory/items/new" />
+            <FixedHeader title="Suppliers" newLink="/dashboard/inventory/suppliers/new" />
             <div className="p-8 my-3">
 
                 <DataTable data={data} columnNames={columnNames} />

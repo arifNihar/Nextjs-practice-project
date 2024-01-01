@@ -28,6 +28,10 @@ export default function Sidebar() {
             href: "/dashboard/inventory",
         },
         {
+            title: "Suppliers",
+            href: "/dashboard/inventory",
+        },
+        {
             title: "Inventory adjustments",
             href: "/dashboard/inventory",
         },

@@ -11,8 +11,6 @@ export async function POST(req) {
                 description: description
             },
         });
-
-        console.log(category);
         return NextResponse.json(category);
     } catch (error) {
         return NextResponse.json(
@@ -24,5 +22,23 @@ export async function POST(req) {
                 status: 500,
             }
         );
+    }
+}
+
+export async function GET(req) {
+    try {
+        const category = await db.category.findMany({
+            orderBy: {
+                created_at: "desc",
+            }
+        });
+        return NextResponse.json(category);
+    } catch (error) {
+        return NextResponse.json({
+            error,
+            message: "Faild to create a category"
+        }, {
+            status: 500
+        })
     }
 }

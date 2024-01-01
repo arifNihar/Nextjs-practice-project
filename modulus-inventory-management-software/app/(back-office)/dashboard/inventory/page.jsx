@@ -1,6 +1,6 @@
 "use client";
 
-import { Shirt, Boxes, Component, ScrollText, Combine, Merge, Warehouse, Ribbon, Puzzle } from "lucide-react";
+import { Shirt, Boxes, Factory, ScrollText, Combine, BookHeart, Warehouse, Ribbon, Puzzle } from "lucide-react";
 import FixedHeader from '@/components/dashboard/FixedHeader'
 import Link from "next/link";
 import OptionCard from "@/components/dashboard/OptionCard";
@@ -48,6 +48,14 @@ export default function Inventory() {
       enabled: true,
     },
     {
+      title: "Suppliers",
+      description: "Create standalone items and services that you buy and sell",
+      icon: Factory,
+      link: "/dashboard/inventory/suppliers/new",
+      link_title: "New Supplier",
+      enabled: true,
+    },
+    {
       title: "Inventory Adjustments",
       description: "Transfer stock from the main warehouse",
       icon: Puzzle,
@@ -67,7 +75,7 @@ export default function Inventory() {
   ]
   return (
     <div>
-      <FixedHeader newLink="/dashboard/inventory" />
+      <FixedHeader title="Items" newLink="/dashboard/inventory" />
       <div className="grid gap-6 px-16 py-8 grid-col-1 lg:grid-cols-3 md:grid-cols-2">
         {itemGroupsData.map((item, idx) => {
           return (
