@@ -9,7 +9,7 @@ import { ShoppingCart, ChevronLeft, ChevronRight, Home, BaggageClaim, ShoppingBa
 
 import CollapsibleLink from "./CollapsibleLink";
 
-export default function SidebarDropdown({ title, links, icon: Icon }) {
+export default function SidebarDropdown({ title, links, icon: Icon, setShowSidebar }) {
     return (
         <Collapsible>
             <CollapsibleTrigger className="flex items-center justify-between w-full">
@@ -23,7 +23,7 @@ export default function SidebarDropdown({ title, links, icon: Icon }) {
                 {
                     links.map((item, idx) => {
                         return (
-                            <CollapsibleLink item={item} key={idx} />
+                            <CollapsibleLink setShowSidebar={setShowSidebar} item={item} key={idx} />
                         )
                     })
                 }

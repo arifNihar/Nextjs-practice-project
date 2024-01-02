@@ -8,9 +8,9 @@ export default async function Brands() {
     return (
         <div>
             <FixedHeader title="Brands" newLink="/dashboard/inventory/brands/new" />
-            <div className="p-8 my-3">
+            <div className="w-full max-w-6xl px-4 py-2 mx-auto my-4">
 
-                <DataTable data={data} columnNames={columnNames} />
+                <DataTable data={data} columnNames={columnNames} menuName="brands" />
             </div>
         </div>
     )

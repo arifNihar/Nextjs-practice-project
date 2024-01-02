@@ -8,9 +8,9 @@ export default async function Categories() {
     return (
         <div>
             <FixedHeader title="Categories" newLink="/dashboard/inventory/categories/new" />
-            <div className="p-8 my-3">
+            <div className="w-full max-w-6xl px-4 py-2 mx-auto my-4">
 
-                <DataTable data={data} columnNames={columnNames} />
+                <DataTable data={data} columnNames={columnNames} menuName="categories" />
             </div>
         </div>
     )

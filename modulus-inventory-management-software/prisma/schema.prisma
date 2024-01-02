@@ -68,11 +68,12 @@ model Units {
 }
 
 model WarehouseType {
-  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  id          String      @id @default(auto()) @map("_id") @db.ObjectId
   title       String
   description String?
-  created_at  DateTime @default(now())
-  updated_at  DateTime @updatedAt
+  created_at  DateTime    @default(now())
+  updated_at  DateTime    @updatedAt
+  Warehouse   Warehouse[]
 }
 
 model Warehouse {
@@ -80,7 +81,8 @@ model Warehouse {
   title                  String
   location               String?
   description            String?
-  type                   String
+  warehouse_type         WarehouseType            @relation(fields: [warehouse_type_id], references: [id])
+  warehouse_type_id      String                   @db.ObjectId
   AddStockAdjusment      AddStockAdjusment[]
   TransferStockAdjusment TransferStockAdjusment[]
   Items                  Item[]

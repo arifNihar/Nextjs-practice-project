@@ -4,6 +4,7 @@ import Image from 'next/image';
 import { Pencil } from 'lucide-react';
 
 export default function ImageInput({ label, className = "col-span-full", imageUrl = "", setImageUrl, endpoint = "imageUploader" }) {
+    console.log(imageUrl);
     return (
         <div className={className}>
             <div className="flex items-center justify-between mb-4">

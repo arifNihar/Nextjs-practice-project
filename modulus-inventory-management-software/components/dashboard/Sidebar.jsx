@@ -1,39 +1,43 @@
 "use client";
 
-import { ShoppingCart, ChevronLeft, ChevronRight, Home, BaggageClaim, ShoppingBag, ShoppingBasket, Cable, BarChart, Files } from "lucide-react";
+import { X, ShoppingCart, ChevronLeft, ChevronRight, Home, BaggageClaim, ShoppingBag, ShoppingBasket, Cable, BarChart, Files } from "lucide-react";
 import Link from "next/link";
 import SubscriptionCard from "./SubscriptionCard";
 import SidebarDropdown from "./SidebarDropdown";
 
-export default function Sidebar() {
+export default function Sidebar({ showSidebar, setShowSidebar }) {
     const inventoryLinks = [
         {
-            title: "Items",
+            title: "All",
             href: "/dashboard/inventory",
+        },
+        {
+            title: "Items",
+            href: "/dashboard/inventory/items",
         },
         {
             title: "Categories",
-            href: "/dashboard/inventory",
+            href: "/dashboard/inventory/categories",
         },
         {
             title: "Brands",
-            href: "/dashboard/inventory",
+            href: "/dashboard/inventory/brands",
         },
         {
             title: "Units",
-            href: "/dashboard/inventory",
+            href: "/dashboard/inventory/units",
         },
         {
             title: "Warehouse",
-            href: "/dashboard/inventory",
+            href: "/dashboard/inventory/warehouse",
         },
         {
             title: "Suppliers",
-            href: "/dashboard/inventory",
+            href: "/dashboard/inventory/suppliers",
         },
         {
             title: "Inventory adjustments",
-            href: "/dashboard/inventory",
+            href: "/dashboard/inventory/adjustments",
         },
     ];
 
@@ -77,13 +81,19 @@ export default function Sidebar() {
     ];
 
     return (
-        <div className="fixed min-h-screen text-indigo-100 w-60 bg-indigo-950">
+        <div className={`${showSidebar ? "fixed min-h-screen z-50 text-indigo-100 w-60 bg-slate-900 lg:block" : "fixed hidden z-50 min-h-screen text-indigo-100 w-60 bg-indigo-950 lg:block"}`}>
             {/* top */}
             <div className="flex flex-col">
                 {/* Logo */}
-                <div className="flex items-center px-2 py-2.5 space-x-2 bg-slate-900">
-                    <ShoppingCart />
-                    <span className="text-xl font-semibold">Inventory</span>
+                <div className="flex justify-between">
+
+                    <Link href="#" className="flex w-full items-center px-2 py-2.5 space-x-2 bg-indigo-950">
+                        <ShoppingCart />
+                        <span className="text-xl font-semibold">Inventory</span>
+                    </Link>
+                    <button className="px-3 py-4 bg-indigo-950 lg:hidden" onClick={() => setShowSidebar(false)}>
+                        <X className="w-6 h-6 text-white" />
+                    </button>
                 </div>
                 {/* Links */}
                 <nav className="flex flex-col gap-3 px-3 py-6">
@@ -99,7 +109,7 @@ export default function Sidebar() {
                         <span>Inventory</span>
                     </button> */}
 
-                    <SidebarDropdown title="Sales" links={salesLinks} icon={ShoppingBasket} />
+                    <SidebarDropdown title="Sales" links={salesLinks} icon={ShoppingBasket} setShowSidebar={setShowSidebar} />
                     {/* <button className="flex items-center p-2 space-x-2">
                         <ShoppingBasket className="w-4 h-4" />
                         <span>Sales</span>
@@ -133,7 +143,7 @@ export default function Sidebar() {
             {/* Bottom */}
             <div className="flex flex-col flex-end">
                 {/* Logo */}
-                <button className="flex items-center px-2 py-2.5 space-x-2 bg-slate-900 justify-center">
+                <button className="flex items-center px-2 py-2.5 space-x-2 bg-indigo-950 justify-center">
                     <ChevronLeft />
                 </button>
                 {/* Links */}

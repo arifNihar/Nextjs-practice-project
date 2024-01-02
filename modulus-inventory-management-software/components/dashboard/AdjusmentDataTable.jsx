@@ -44,9 +44,9 @@ export default function AdjustmentDataTable({ addData, addColumnNames, transferD
 
             {
                 activeForm === "add" ? (
-                    <DataTable data={addData} columnNames={addColumnNames} />
+                    <DataTable data={addData} columnNames={addColumnNames} menuName="adjustments" />
                 ) : (
-                    <DataTable data={transferData} columnNames={transferColumnNames} />
+                    <DataTable data={transferData} columnNames={transferColumnNames} menuName="adjustments" />
                 )
             }
         </div>

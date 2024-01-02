@@ -54,11 +54,12 @@ export default function WarehouseDataTable({
             </div>
 
             {activeForm === "main" ? (
-                <DataTable data={warehouse_data} columnNames={warehouse_columnNames} />
+                <DataTable data={warehouse_data} columnNames={warehouse_columnNames} menuName="warehouse" />
             ) : (
                 <DataTable
                     data={warehouse_type_data}
                     columnNames={warehouse_type_columnNames}
+                    menuName="warehouse"
                 />
             )}
         </div>

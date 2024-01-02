@@ -10,7 +10,7 @@ export default async function Items() {
             <FixedHeader title="Items" newLink="/dashboard/inventory/items/new" />
             <div className="p-8 my-3">
 
-                <DataTable data={data} columnNames={columnNames} />
+                <DataTable data={data} columnNames={columnNames} menuName="items" />
             </div>
         </div>
     )

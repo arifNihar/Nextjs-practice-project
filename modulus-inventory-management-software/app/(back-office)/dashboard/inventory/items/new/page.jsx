@@ -1,8 +1,9 @@
 import FormHeader from "@/components/dashboard/FormHeader";
 import { getData } from "@/lib/getData";
 import CreateItemForm from "@/components/dashboard/CreateItemForm";
+import { useRouter } from "next/navigation";
 
-export default async function NewItem() {
+export default async function NewItem({ initialdata = {}, isUpdate = false }) {
     const categories_data = getData("categories");
     const units_data = getData("units");
     const brands_data = getData("brands");
@@ -19,13 +20,15 @@ export default async function NewItem() {
 
     return (
         <div>
-            <FormHeader title="New Item" href="/dashboard/inventory" />
+            <FormHeader title={isUpdate ? "Update Item" : "New Item"} href="/dashboard/inventory" />
             <CreateItemForm
                 categories={categories}
                 brands={brands}
                 units={units}
                 warehouses={warehouses}
                 suppliers={suppliers}
+                initialdata={initialdata}
+                isUpdate={isUpdate}
             />
         </div>
     );

@@ -8,22 +8,55 @@ import SubmitButton from "@/components/FormInputs/SubmitButton";
 import TextareaInput from "@/components/FormInputs/TextareaInput";
 import SelectInput from "@/components/FormInputs/SelectInput";
 import ImageInput from "@/components/FormInputs/ImageInput";
-import { makePostRequest } from "@/lib/apiRequest";
+import { makePostRequest, makePutRequest } from "@/lib/apiRequest";
+import { useRouter } from "next/navigation";
 
-export default function CreateItemForm({ categories, brands, units, warehouses, suppliers }) {
-    const [imageUrl, setImageUrl] = useState("");
-    const { register, handleSubmit, reset, formState: { errors } } = useForm();
+export default function CreateItemForm({
+    categories,
+    brands,
+    units,
+    warehouses,
+    suppliers,
+    initialdata = {},
+    isUpdate = false,
+}) {
+    const router = useRouter();
+    const redirect = () => {
+        router.push("/dashboard/inventory/items");
+    };
+    const [imageUrl, setImageUrl] = useState("" || initialdata?.imageUrl);
+
+    const {
+        register,
+        handleSubmit,
+        reset,
+        formState: { errors },
+    } = useForm({ defaultValues: initialdata });
+
     const [loading, setLoading] = useState(false);
     const onSubmit = async (data) => {
-        data.imageUrl = imageUrl;
         const baseUrl = "http://localhost:3000";
-        makePostRequest(setLoading, `${baseUrl}/api/items`, data, 'Item', reset);
-        setImageUrl("");
-    }
+        if (isUpdate) {
+            if (imageUrl !== "") {
+                data.imageUrl = imageUrl;
+            }
+            makePutRequest(
+                setLoading,
+                `${baseUrl}/api/items/${initialdata.id}`,
+                data,
+                "Item",
+                redirect
+            );
+            setImageUrl("");
+        } else {
+            data.imageUrl = imageUrl;
+            makePostRequest(setLoading, `${baseUrl}/api/items`, data, "Item", reset);
+            setImageUrl("");
+        }
+    };
     return (
         <div className="w-full max-w-4xl p-4 mx-auto my-3 bg-white border border-gray-200 rounded-lg shadow sm:p-6 md:p-8 dark:bg-gray-800 dark:border-gray-700">
-
-            <form onSubmit={handleSubmit(onSubmit)} >
+            <form onSubmit={handleSubmit(onSubmit)}>
                 <div className="grid gap-4 sm:grid-cols-2 sm:gap-6">
                     <TextInput
                         name="title"
@@ -186,7 +219,12 @@ export default function CreateItemForm({ categories, brands, units, warehouses, 
                         className="w-full"
                         errors={errors}
                     />
-                    <ImageInput label="Item Image" imageUrl={imageUrl} setImageUrl={setImageUrl} endpoint="imageUploader" />
+                    <ImageInput
+                        label="Item Image"
+                        imageUrl={imageUrl}
+                        setImageUrl={setImageUrl}
+                        endpoint="imageUploader"
+                    />
                     <TextareaInput
                         name="description"
                         label="Item Description"
@@ -206,8 +244,11 @@ export default function CreateItemForm({ categories, brands, units, warehouses, 
                         errors={errors}
                     />
                 </div>
-                <SubmitButton isLoading={loading} title="Item" />
+                <SubmitButton
+                    isLoading={loading}
+                    title={isUpdate ? "Update Item" : "New Item"}
+                />
             </form>
-        </div >
-    )
+        </div>
+    );
 }

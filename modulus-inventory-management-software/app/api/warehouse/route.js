@@ -3,10 +3,10 @@ import { NextResponse } from 'next/server';
 
 export async function POST(req) {
     try {
-        const { title, location, type, description } = await req.json();
+        const { title, location, type: warehouse_type_id, description } = await req.json();
 
         const warehouse = await db.warehouse.create({
-            data: { title, location, type, description }
+            data: { title, location, warehouse_type_id, description }
         });
 
         return NextResponse.json(warehouse);
@@ -25,12 +25,15 @@ export async function GET(req) {
         const warehouse = await db.warehouse.findMany({
             orderBy: {
                 created_at: "desc",
+            },
+            include: {
+                warehouse_type: true,
             }
         });
         return NextResponse.json(warehouse);
     } catch (error) {
         return NextResponse.json({
-            error,
+            error: error.message,
             message: "Faild to create a warehouse"
         }, {
             status: 500
