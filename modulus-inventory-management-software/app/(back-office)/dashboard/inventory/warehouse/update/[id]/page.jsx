@@ -1,7 +1,12 @@
-export default function Update({ params: { id } }) {
+"use client";
+
+import { getData } from "@/lib/getData";
+import NewWarehouse from "../../new/page";
+
+
+export default async function Update({ params: { id } }) {
+    const data = await getData(`warehouse/${id}`);
     return (
-        <div>
-            <h2>Update: {id}</h2>
-        </div>
+        <NewWarehouse initialdata={data} isUpdate={true} />
     )
 }

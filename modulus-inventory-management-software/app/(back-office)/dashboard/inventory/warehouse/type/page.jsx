@@ -6,20 +6,35 @@ import TextInput from "@/components/FormInputs/TextInput";
 import { useState } from "react";
 import SubmitButton from "@/components/FormInputs/SubmitButton";
 import TextareaInput from "@/components/FormInputs/TextareaInput";
-import { makePostRequest } from "@/lib/apiRequest";
+import { makePostRequest, makePutRequest } from "@/lib/apiRequest";
+import { useRouter } from "next/navigation";
 
-export default function NewWarehouseType() {
-    const { register, handleSubmit, reset, formState: { errors } } = useForm();
+export default function NewWarehouseType({ warehouse_types, initialdata = {}, isUpdate = {} }) {
+    const { register, handleSubmit, reset, formState: { errors } } = useForm({ defaultValues: initialdata });
     const [loading, setLoading] = useState(false);
+    const router = useRouter();
+    const redirect = () => {
+        router.push("/dashboard/inventory/warehouse");
+    };
 
     const onSubmit = async (data) => {
         const baseUrl = "http://localhost:3000";
-        makePostRequest(setLoading, `${baseUrl}/api/warehouse/type`, data, 'Warehouse Type', reset);
+        if (isUpdate) {
+            makePutRequest(
+                setLoading,
+                `${baseUrl}/api/warehouse/type/${initialdata.id}`,
+                data,
+                "Warehouse Type",
+                redirect
+            );
+        } else {
+            makePostRequest(setLoading, `${baseUrl}/api/warehouse/type`, data, 'Warehouse Type', reset);
+        }
     }
 
     return (
         <div>
-            <FormHeader title="New Warehouse" href="/dashboard/inventory" />
+            <FormHeader title={isUpdate ? "Update Warehouse Type" : "New Warehouse Type"} href="/dashboard/inventory" />
             <div className="w-full max-w-4xl p-4 mx-auto my-3 bg-white border border-gray-200 rounded-lg shadow sm:p-6 md:p-8 dark:bg-gray-800 dark:border-gray-700">
 
                 <form onSubmit={handleSubmit(onSubmit)} >
@@ -46,7 +61,7 @@ export default function NewWarehouseType() {
                             errors={errors}
                         />
                     </div>
-                    <SubmitButton isLoading={loading} title="Warehouse Type" />
+                    <SubmitButton isLoading={loading} title={isUpdate ? "Update Warehouse Type" : "New Warehouse Type"} />
                 </form>
             </div >
         </div >

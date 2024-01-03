@@ -39,6 +39,9 @@ export async function GET(req) {
         const adjusment = await db.addStockAdjusment.findMany({
             orderBy: {
                 created_at: "desc",
+            },
+            include: {
+                warehouse: true
             }
         });
 

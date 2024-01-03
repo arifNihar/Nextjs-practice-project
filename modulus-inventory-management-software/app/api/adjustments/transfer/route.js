@@ -41,6 +41,9 @@ export async function GET(req) {
         const adjustment = await db.transferStockAdjusment.findMany({
             orderBy: {
                 created_at: "desc",
+            },
+            include: {
+                warehouse: true
             }
         });
 

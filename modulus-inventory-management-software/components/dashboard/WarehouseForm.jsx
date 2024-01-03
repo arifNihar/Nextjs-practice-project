@@ -1,21 +1,35 @@
 "use client";
 
 import { useForm } from "react-hook-form";
-import FormHeader from "@/components/dashboard/FormHeader";
 import TextInput from "@/components/FormInputs/TextInput";
 import { useState } from "react";
 import SubmitButton from "@/components/FormInputs/SubmitButton";
 import TextareaInput from "@/components/FormInputs/TextareaInput";
 import SelectInput from "@/components/FormInputs/SelectInput";
-import { makePostRequest } from "@/lib/apiRequest";
+import { makePostRequest, makePutRequest } from "@/lib/apiRequest";
+import { useRouter } from "next/navigation";
 
-export default function WarehouseForm({ warehouse_types }) {
-    const { register, handleSubmit, reset, formState: { errors } } = useForm();
+export default function WarehouseForm({ warehouse_types, initialdata = {}, isUpdate = {} }) {
+    const { register, handleSubmit, reset, formState: { errors } } = useForm({ defaultValues: initialdata });
     const [loading, setLoading] = useState(false);
+    const router = useRouter();
+    const redirect = () => {
+        router.push("/dashboard/inventory/warehouse");
+    };
 
     const onSubmit = async (data) => {
         const baseUrl = "http://localhost:3000";
-        makePostRequest(setLoading, `${baseUrl}/api/warehouse`, data, 'Warehouse', reset);
+        if (isUpdate) {
+            makePutRequest(
+                setLoading,
+                `${baseUrl}/api/warehouse/${initialdata.id}`,
+                data,
+                "Warehouse",
+                redirect
+            );
+        } else {
+            makePostRequest(setLoading, `${baseUrl}/api/warehouse`, data, 'Warehouse', reset);
+        }
     }
 
     return (
@@ -66,7 +80,7 @@ export default function WarehouseForm({ warehouse_types }) {
                         errors={errors}
                     />
                 </div>
-                <SubmitButton isLoading={loading} title="Warehouse" />
+                <SubmitButton isLoading={loading} title={isUpdate ? "Update Warehouse" : "New Warehouse"} />
             </form>
         </div >
     )

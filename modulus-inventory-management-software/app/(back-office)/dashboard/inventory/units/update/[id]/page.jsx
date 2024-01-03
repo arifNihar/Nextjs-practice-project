@@ -1,7 +1,12 @@
-export default function Update({ params: { id } }) {
+"use client";
+
+import { getData } from "@/lib/getData";
+import NewUnit from "../../new/page";
+
+
+export default async function Update({ params: { id } }) {
+    const data = await getData(`units/${id}`);
     return (
-        <div>
-            <h2>Update: {id}</h2>
-        </div>
+        <NewUnit initialdata={data} isUpdate={true} />
     )
 }

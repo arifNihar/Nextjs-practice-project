@@ -7,6 +7,12 @@ export async function GET(req, { params: { id } }) {
             where: {
                 id,
             },
+            include: {
+                category: true,
+                brands: true,
+                supplier: true,
+                warehouse: true,
+            }
         });
 
         return NextResponse.json(item);

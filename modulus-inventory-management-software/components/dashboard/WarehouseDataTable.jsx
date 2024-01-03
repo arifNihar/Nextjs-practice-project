@@ -59,7 +59,7 @@ export default function WarehouseDataTable({
                 <DataTable
                     data={warehouse_type_data}
                     columnNames={warehouse_type_columnNames}
-                    menuName="warehouse"
+                    menuName="warehouse/type"
                 />
             )}
         </div>

@@ -6,15 +6,32 @@ import { useState } from "react";
 import SubmitButton from "@/components/FormInputs/SubmitButton";
 import TextareaInput from "@/components/FormInputs/TextareaInput";
 import SelectInput from "@/components/FormInputs/SelectInput";
-import { makePostRequest } from "@/lib/apiRequest";
+import { makePostRequest, makePutRequest } from "@/lib/apiRequest";
+import { useRouter } from "next/navigation";
 
-export default function AddInventoryForm({ warehouses, items }) {
 
-    const { register, handleSubmit, reset, formState: { errors } } = useForm();
+export default function AddInventoryForm({ warehouses, items, initialdata = {}, isUpdate = {} }) {
+
+    const { register, handleSubmit, reset, formState: { errors } } = useForm({ defaultValues: initialdata });
     const [loading, setLoading] = useState(false);
+    const router = useRouter();
+    const redirect = () => {
+        router.push("/dashboard/inventory/adjusments");
+    };
+
     const onSubmit = async (data) => {
         const baseUrl = "http://localhost:3000";
-        makePostRequest(setLoading, `${baseUrl}/api/adjustments/add`, data, 'Add Adjusment', reset);
+        if (isUpdate) {
+            makePutRequest(
+                setLoading,
+                `${baseUrl}/api/adjustments/add/${initialdata.id}`,
+                data,
+                "Add Adjusment",
+                redirect
+            );
+        } else {
+            makePostRequest(setLoading, `${baseUrl}/api/adjustments/add`, data, 'Add Adjusment', reset);
+        }
     }
 
     return (
@@ -73,7 +90,7 @@ export default function AddInventoryForm({ warehouses, items }) {
                     errors={errors}
                 />
             </div>
-            <SubmitButton isLoading={loading} title="adjustment" />
+            <SubmitButton isLoading={loading} title={isUpdate ? "Update Adjusment" : "New Adjusment"} />
         </form>
     )
 }

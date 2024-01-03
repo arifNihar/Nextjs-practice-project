@@ -4,9 +4,9 @@ import { getData } from "@/lib/getData";
 
 export default async function Adjustments() {
     const addData = await getData('adjustments/add');
-    const addColumnNames = ['add_stock', 'reference_number', 'adjustment_note'];
+    const addColumnNames = ['add_stock', 'reference_number', 'adjustment_note', "warehouse.title"];
     const transferData = await getData('adjustments/transfer');
-    const transferColumnNames = ['transfer_stock', 'reference_number', 'adjustment_note'];
+    const transferColumnNames = ['transfer_stock', 'reference_number', 'adjustment_note', "warehouse.title"];
     return (
         <div>
             <FixedHeader title="Adjustments" newLink="/dashboard/inventory/adjustments/new" />

@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { BadgePlus, BadgeMinus } from 'lucide-react';
 import DataTable from '@/components/dashboard/DataTable';
 
-export default function AdjustmentDataTable({ addData, addColumnNames, transferData, transferColumnNames }) {
+export default function AdjustmentDataTable({ addData = {}, addColumnNames = [], transferData = {}, transferColumnNames = [] }) {
     const tabs = [
         {
             title: "Add Stock",
