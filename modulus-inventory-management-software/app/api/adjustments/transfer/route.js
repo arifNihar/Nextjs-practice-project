@@ -9,20 +9,66 @@ export async function POST(req) {
             giving_warehouse_id,
             recieving_warehouse_id,
             item_id,
+            supplier_id,
             adjustment_note,
         } = await req.json();
 
-        const adjustment = await db.transferStockAdjusment.create({
-            data: {
-                transfer_stock: parseInt(transfer_stock),
-                reference_number,
-                giving_warehouse_id,
-                recieving_warehouse_id,
-                item_id,
-                adjustment_note,
-            },
+        const giving_warehouse = await db.warehouse.findUnique({
+            where: {
+                id: giving_warehouse_id,
+            }
         });
-        return NextResponse.json(adjustment);
+        console.log(giving_warehouse.stock_qty)
+        if (parseInt(giving_warehouse.stock_qty) > parseInt(transfer_stock)) {
+            const currentGivingWarehouseStock = giving_warehouse.stock_qty;
+            const givingWarehouseStockUpdate = await db.warehouse.update({
+                where: {
+                    id: giving_warehouse_id,
+                },
+                data: {
+                    stock_qty: parseInt(currentGivingWarehouseStock) - parseInt(transfer_stock)
+                }
+            })
+
+            const recieving_warehouse = await db.warehouse.findUnique({
+                where: {
+                    id: recieving_warehouse_id,
+                }
+            });
+
+            const currentRecievingWarehouseStock = recieving_warehouse.stock_qty;
+            const recievingWarehouseStockUpdate = await db.warehouse.update({
+                where: {
+                    id: recieving_warehouse_id,
+                },
+                data: {
+                    stock_qty: parseInt(currentRecievingWarehouseStock) + parseInt(transfer_stock)
+                }
+            })
+
+            const adjustment = await db.transferStockAdjusment.create({
+                data: {
+                    transfer_stock: parseInt(transfer_stock),
+                    reference_number,
+                    giving_warehouse_id,
+                    recieving_warehouse_id,
+                    item_id,
+                    supplier_id,
+                    adjustment_note,
+                },
+            });
+            return NextResponse.json(adjustment);
+        } else {
+            return NextResponse.json(
+                {
+                    data: null,
+                    message: "Transfer stock is insufficient!",
+                },
+                {
+                    status: 409,
+                }
+            );
+        }
     } catch (error) {
         return NextResponse.json(
             {

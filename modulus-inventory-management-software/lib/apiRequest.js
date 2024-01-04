@@ -11,13 +11,19 @@ export async function makePostRequest(setLoading, url, data, message, reset) {
             },
             body: JSON.stringify(data)
         })
+
         if (response.ok) {
             setLoading(false);
             toast.success(`New ${message} save Successfully!`);
             reset();
         } else {
             setLoading(false);
-            toast.error('OOPs, Sorry. Something is wrong here.');
+            if (response.status === 409) {
+                toast.error("Transfer stock is insufficient!");
+            } else {
+                toast.error('OOPs, Sorry. Something is wrong here.');
+            }
+
         }
     } catch (error) {
         setLoading(false);

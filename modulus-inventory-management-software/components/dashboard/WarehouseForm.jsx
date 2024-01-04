@@ -9,7 +9,7 @@ import SelectInput from "@/components/FormInputs/SelectInput";
 import { makePostRequest, makePutRequest } from "@/lib/apiRequest";
 import { useRouter } from "next/navigation";
 
-export default function WarehouseForm({ warehouse_types, initialdata = {}, isUpdate = {} }) {
+export default function WarehouseForm({ warehouse_types, initialdata = {}, isUpdate = false }) {
     const { register, handleSubmit, reset, formState: { errors } } = useForm({ defaultValues: initialdata });
     const [loading, setLoading] = useState(false);
     const router = useRouter();
