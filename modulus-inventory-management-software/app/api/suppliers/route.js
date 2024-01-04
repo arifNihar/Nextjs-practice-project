@@ -8,7 +8,7 @@ export async function POST(req) {
         const supplier = await db.supplier.create({
             data: { name, phone, email, contact_person, address, supplier_code, payment_terms, taxt_id, supplier_note }
         });
-        console.log(supplier);
+
         return NextResponse.json(supplier);
     } catch (error) {
         return NextResponse.json({
@@ -32,6 +32,25 @@ export async function GET(req) {
         return NextResponse.json({
             error,
             message: "Faild to create a supplier"
+        }, {
+            status: 500
+        })
+    }
+}
+
+export async function DELETE(req) {
+    try {
+        const id = req.nextUrl.searchParams.get("id");
+        const delete_supplier = await db.supplier.delete({
+            where: {
+                id
+            }
+        });
+        return NextResponse.json(delete_supplier);
+    } catch (error) {
+        return NextResponse.json({
+            error: error.message,
+            message: "Faild to Delete a supplier"
         }, {
             status: 500
         })

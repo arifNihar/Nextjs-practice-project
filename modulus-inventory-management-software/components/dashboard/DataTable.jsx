@@ -1,8 +1,8 @@
 import { PencilRuler, Trash2 } from "lucide-react";
 import Link from 'next/link';
+import DeleteBtn from "./DeleteBtn";
 
 export default function DataTable({ data = [], columnNames = [], menuName }) {
-    console.log(data);
     return (
         <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
             <table className="w-full text-sm text-left text-gray-500 rtl:text-right dark:text-gray-400">
@@ -53,10 +53,7 @@ export default function DataTable({ data = [], columnNames = [], menuName }) {
                                         <PencilRuler className="w-4 h-4" />
                                         <span>Edit</span>
                                     </Link>
-                                    <button className="flex items-center space-x-1 font-medium text-red-600 dark:text-red-500">
-                                        <Trash2 className="w-4 h-4" />
-                                        <span>Delete</span>
-                                    </button>
+                                    <DeleteBtn id={item.id} endpoint={menuName} />
                                 </td>
                             </tr>
                         );

@@ -7,7 +7,6 @@ import { getData } from "@/lib/getData";
 export default async function NewWarehouse({ initialdata = {}, isUpdate = {} }) {
     const warehouse_type = getData("/warehouse/type");
     const [warehouse_types] = await Promise.all([warehouse_type]);
-    console.log(warehouse_types)
     return (
         <div>
             <FormHeader title={isUpdate ? "Update Warehouse" : "New Warehouse"} href="/dashboard/inventory" />

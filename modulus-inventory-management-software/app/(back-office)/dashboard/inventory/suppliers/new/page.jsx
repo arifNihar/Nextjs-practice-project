@@ -17,7 +17,7 @@ export default function Newsupplier({ initialdata = {}, isUpdate = false }) {
         router.push("/dashboard/inventory/suppliers");
     };
     const onSubmit = async (data) => {
-        const baseUrl = "http://localhost:3000";
+        const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
         if (isUpdate) {
             makePutRequest(
                 setLoading,

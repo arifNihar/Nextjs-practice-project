@@ -6,7 +6,6 @@ import NewCategory from "../../new/page";
 
 export default async function Update({ params: { id } }) {
     const data = await getData(`categories/${id}`);
-    console.log(data);
     return (
         <NewCategory initialdata={data} isUpdate={true} />
     )

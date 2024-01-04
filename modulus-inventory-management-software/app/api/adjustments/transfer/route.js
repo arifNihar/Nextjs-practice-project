@@ -57,3 +57,22 @@ export async function GET(req) {
         })
     }
 }
+
+export async function DELETE(req) {
+    try {
+        const id = req.nextUrl.searchParams.get("id");
+        const delete_transferStockAdjusment = await db.transferStockAdjusment.delete({
+            where: {
+                id
+            }
+        });
+        return NextResponse.json(delete_transferStockAdjusment);
+    } catch (error) {
+        return NextResponse.json({
+            error: error.message,
+            message: "Faild to Delete a Transfer Stock Adjusment"
+        }, {
+            status: 500
+        })
+    }
+}

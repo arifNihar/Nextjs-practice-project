@@ -81,13 +81,13 @@ export default function Sidebar({ showSidebar, setShowSidebar }) {
     ];
 
     return (
-        <div className={`${showSidebar ? "fixed min-h-screen z-50 text-indigo-100 w-60 bg-slate-900 lg:block" : "fixed hidden z-50 min-h-screen text-indigo-100 w-60 bg-indigo-950 lg:block"}`}>
+        <div className={`${showSidebar ? "fixed min-h-screen z-50 text-indigo-100 w-60 bg-indigo-950 lg:block" : "fixed hidden z-50 min-h-screen text-indigo-100 w-60 bg-indigo-950 lg:block"}`}>
             {/* top */}
             <div className="flex flex-col">
                 {/* Logo */}
                 <div className="flex justify-between">
 
-                    <Link href="#" className="flex w-full items-center px-2 py-2.5 space-x-2 bg-indigo-950">
+                    <Link href="/dashboard/home/overview" className="flex w-full items-center px-2 py-2.5 space-x-2 bg-[#042147]">
                         <ShoppingCart />
                         <span className="text-xl font-semibold">Inventory</span>
                     </Link>
@@ -143,7 +143,7 @@ export default function Sidebar({ showSidebar, setShowSidebar }) {
             {/* Bottom */}
             <div className="flex flex-col flex-end">
                 {/* Logo */}
-                <button className="flex items-center px-2 py-2.5 space-x-2 bg-indigo-950 justify-center">
+                <button className="flex items-center px-2 py-2.5 space-x-2 bg-[#042147] justify-center">
                     <ChevronLeft />
                 </button>
                 {/* Links */}

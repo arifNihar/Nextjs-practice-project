@@ -1,6 +1,6 @@
 export async function getDataById(endpoint) {
     try {
-        const baseUrl = "http://localhost:3000";
+        const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
         const response = await fetch(`${baseUrl}/api/${endpoint}`, {
             cache: "no-store",
         });

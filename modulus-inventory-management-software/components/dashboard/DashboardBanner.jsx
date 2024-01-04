@@ -6,7 +6,7 @@ import { CreditCard, X } from "lucide-react";
 export default function DashboardBanner() {
     const [hidden, setHidden] = useState(false);
     return (
-        <div className={`${hidden ? "hidden" : "relative grid items-center justify-between grid-cols-12 gap-3 px-16 py-6 bg-white"}`}>
+        <div className={`${hidden ? "hidden" : "hidden relative lg:grid items-center justify-between grid-cols-12 gap-3 px-16 py-6 bg-white"}`}>
             <div className="col-span-2">
                 <CreditCard className="w-16 h-16 text-slate-400" />
             </div>

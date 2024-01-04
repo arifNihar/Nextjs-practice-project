@@ -35,7 +35,7 @@ export default function CreateItemForm({
 
     const [loading, setLoading] = useState(false);
     const onSubmit = async (data) => {
-        const baseUrl = "http://localhost:3000";
+        const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
         if (isUpdate) {
             if (imageUrl !== "") {
                 data.imageUrl = imageUrl;

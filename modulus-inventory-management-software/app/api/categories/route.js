@@ -35,8 +35,28 @@ export async function GET(req) {
         return NextResponse.json(category);
     } catch (error) {
         return NextResponse.json({
-            error,
+            error: error.message,
             message: "Faild to create a category"
+        }, {
+            status: 500
+        })
+    }
+}
+
+export async function DELETE(req) {
+    try {
+        const id = req.nextUrl.searchParams.get("id");
+        console.log(id);
+        const delete_category = await db.category.delete({
+            where: {
+                id
+            }
+        });
+        return NextResponse.json(delete_category);
+    } catch (error) {
+        return NextResponse.json({
+            error: error.message,
+            message: "Faild to Delete a category"
         }, {
             status: 500
         })

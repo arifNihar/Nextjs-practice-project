@@ -22,7 +22,7 @@ export default function NewBrand({ initialdata = {}, isUpdate = false }) {
     } = useForm({ defaultValues: initialdata });
     const [loading, setLoading] = useState(false);
     const onSubmit = async (data) => {
-        const baseUrl = "http://localhost:3000";
+        const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
         if (isUpdate) {
             makePutRequest(setLoading, `${baseUrl}/api/brands/${initialdata.id}`, data, "Brand", redirect);
         } else {

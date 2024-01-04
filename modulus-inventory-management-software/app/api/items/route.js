@@ -84,3 +84,22 @@ export async function GET(req) {
         })
     }
 }
+
+export async function DELETE(req) {
+    try {
+        const id = req.nextUrl.searchParams.get("id");
+        const delete_item = await db.item.delete({
+            where: {
+                id
+            }
+        });
+        return NextResponse.json(delete_item);
+    } catch (error) {
+        return NextResponse.json({
+            error: error.message,
+            message: "Faild to Delete a item"
+        }, {
+            status: 500
+        })
+    }
+}
