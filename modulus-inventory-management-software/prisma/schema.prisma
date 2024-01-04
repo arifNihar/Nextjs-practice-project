@@ -139,3 +139,14 @@ model Supplier {
   created_at             DateTime                 @default(now())
   updated_at             DateTime                 @updatedAt
 }
+
+model User {
+  id             String    @id @default(auto()) @map("_id") @db.ObjectId
+  name           String
+  email          String?   @unique
+  emailVerified  DateTime?
+  image          String?
+  hashedPassword String?
+  created_at     DateTime  @default(now())
+  updated_at     DateTime  @updatedAt
+}
