@@ -2,9 +2,10 @@
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
+import { signIn } from "next-auth/react";
 import toast from "react-hot-toast";
 
-export default function RegisterForm() {
+export default function LoginForm() {
   const router = useRouter();
   const {
     register,
@@ -18,30 +19,25 @@ export default function RegisterForm() {
     try {
       const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
       setLoading(true);
-      const response = await fetch(`${baseUrl}/api/user`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data),
+      const loginData = await signIn("credentials", {
+        ...data,
+        redirect: false,
       });
-
-      const responseData = await response.json();
-      console.log(response);
-      if (response.ok) {
+      console.log(loginData);
+      if (loginData.ok) {
         setLoading(false);
-        toast.success("User created Successfully");
+        router.push("/dashboard/home/overview");
+        toast.success("You are Loging Successfully");
+      } else if (loginData.status === 401) {
+        setLoading(false);
+        toast.error("Oops! Credentials are invalid.");
         reset();
         router.push("/login");
       } else {
         setLoading(false);
-        if (response.status === 409) {
-          setEmail("User this Email already exists");
-          toast.error("User this Email already exists");
-        } else {
-          console.error("Server Error: ", responseData.message);
-          toast.error("Oops Somethings went wrong");
-        }
+        toast.error("Oops Somethings went wrong");
+        reset();
+        router.push("/login");
       }
     } catch (error) {
       setLoading(false);
@@ -55,26 +51,6 @@ export default function RegisterForm() {
       className="max-w-sm mx-auto"
       action="#"
     >
-      <div className="mb-5">
-        <label
-          htmlFor="name"
-          className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-        >
-          Your Name
-        </label>
-        <input
-          {...register("name", { required: true })}
-          type="text"
-          name="name"
-          id="name"
-          className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-indigo-500 focus:border-indigo-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-indigo-500 dark:focus:border-indigo-500 dark:shadow-sm-light"
-          placeholder="Jhon Dul"
-          required=""
-        />
-        {errors.name && (
-          <small className="text-sm text-red-600">This field is required</small>
-        )}
-      </div>
       <div className="mb-5">
         <label
           htmlFor="email"
@@ -144,28 +120,28 @@ export default function RegisterForm() {
               fill="currentColor"
             />
           </svg>
-          Saving Please wait...
+          Loging Please wait...
         </button>
       ) : (
         <button
           type="submit"
           className="flex items-center justify-center w-full px-5 py-3 mb-5 text-sm font-medium text-center text-white bg-indigo-700 rounded-lg hover:bg-indigo-800 focus:ring-4 focus:outline-none focus:ring-indigo-300 dark:bg-indigo-600 dark:hover:bg-indigo-700 dark:focus:ring-indigo-800"
         >
-          <span className="text-center">Sign Up </span>
+          <span className="text-center">Sign in </span>
         </button>
       )}
       <p
         id="helper-text-explanation"
         className="mt-2 text-sm text-gray-500 dark:text-gray-400"
       >
-        Already have an account.{" "}
+        You have not an account.{" "}
         <a
-          href="/login"
+          href="/register"
           className="font-medium text-indigo-600 hover:underline dark:text-indigo-500"
         >
-          Login
-        </a>
-        .
+          Sign up
+        </a>{" "}
+        first .
       </p>
     </form>
   );

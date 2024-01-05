@@ -6,7 +6,7 @@ export async function POST(req) {
   try {
     const { name, email, password } = await req.json();
 
-    const userExist = await db.user.findUnique({
+    const userExist = await db.user.findOne({
       where: {
         email,
       },
@@ -24,7 +24,6 @@ export async function POST(req) {
       );
     }
     const hashedPassword = await hash(password, 10);
-    console.log(hashedPassword);
     const newUser = await db.user.create({
       data: {
         name,
@@ -32,7 +31,6 @@ export async function POST(req) {
         hashedPassword,
       },
     });
-    console.log(newUser);
     return NextResponse.json(newUser);
   } catch (error) {
     return NextResponse.json(

@@ -1,10 +1,13 @@
 "use client";
 
 import { Building2 } from "lucide-react";
+import { useSession } from "next-auth/react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
 export default function HomeNavbar() {
+  const { data: session } = useSession();
+  const username = session?.user?.name || "";
   const pathname = usePathname();
   const navLinks = [
     {
@@ -34,7 +37,7 @@ export default function HomeNavbar() {
           <p className="font-semibold uppercase text-slate-700">
             Hello, Modulus Developer
           </p>
-          <span className="text-sm text-gray-500">Garat</span>
+          <span className="text-sm text-gray-500">{username}</span>
         </div>
       </div>
 
