@@ -33,7 +33,7 @@ export default function Navbar() {
 
   return (
     <>
-      <header className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between w-full h-16 px-16 bg-indigo-800 text-slate-50">
+      <header className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between w-full h-16 px-16 bg-indigo-700 text-slate-50">
         <Link className="text-2xl font-bold md:text-4xl" href="/">
           Inventory Management
         </Link>

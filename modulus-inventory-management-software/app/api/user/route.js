@@ -6,7 +6,7 @@ export async function POST(req) {
   try {
     const { name, email, password } = await req.json();
 
-    const userExist = await db.user.findOne({
+    const userExist = await db.user.findUnique({
       where: {
         email,
       },
