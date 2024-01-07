@@ -16,6 +16,7 @@ export default async function SalesOverview() {
     warehouses_data,
     suppliers_data,
   ]);
+
   const inventorySummary = warehouses?.map((item, i) => {
     return {
       title: item.title,
