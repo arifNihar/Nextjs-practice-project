@@ -19,6 +19,7 @@ export default function RegisterForm() {
       const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
       setLoading(true);
       const response = await fetch(`${baseUrl}/api/user`, {
+        mode: "no-cors",
         method: "POST",
         headers: {
           "Content-Type": "application/json",

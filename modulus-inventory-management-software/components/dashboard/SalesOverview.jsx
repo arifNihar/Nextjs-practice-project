@@ -26,7 +26,7 @@ export default async function SalesOverview() {
   const inventoryActivity = [
     {
       title: "Category",
-      number: categories?.length,
+      number: categories?.length || 0,
       href: "/dashboard/inventory/categories",
       unit: "",
       color: "text-blue-600",
@@ -34,7 +34,7 @@ export default async function SalesOverview() {
     },
     {
       title: "Brands",
-      number: brands?.length,
+      number: brands?.length || 0,
       href: "/dashboard/inventory/brands",
       unit: "",
       color: "text-blue-600",
@@ -42,7 +42,7 @@ export default async function SalesOverview() {
     },
     {
       title: "Suppliers",
-      number: suppliers?.length,
+      number: suppliers?.length || 0,
       href: "/dashboard/inventory/suppliers",
       unit: "",
       color: "text-blue-600",
@@ -50,7 +50,7 @@ export default async function SalesOverview() {
     },
     {
       title: "Warehouses",
-      number: warehouses?.length,
+      number: warehouses?.length || 0,
       href: "/dashboard/inventory/warehouse",
       unit: "",
       color: "text-blue-600",
