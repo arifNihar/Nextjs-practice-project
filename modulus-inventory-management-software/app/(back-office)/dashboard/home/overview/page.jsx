@@ -15,7 +15,7 @@ export default async function Dashboard() {
       <SalesOverview />
       <CurrentStock items={items} title="Available Stock Items" />
       <h2 className="p-8 text-xl">Warehouse base Stock Items</h2>
-      {warehouses.map((warehouse, i) => {
+      {warehouses?.map((warehouse, i) => {
         return <CurrentStock items={warehouse.items} title={warehouse.title} />;
       })}
     </div>
