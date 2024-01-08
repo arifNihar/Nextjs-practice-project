@@ -8,6 +8,7 @@ import TextareaInput from "@/components/FormInputs/TextareaInput";
 import SelectInput from "@/components/FormInputs/SelectInput";
 import { makePostRequest, makePutRequest } from "@/lib/apiRequest";
 import { useRouter } from "next/navigation";
+import { config } from "@/lib/config";
 
 export default function TransferInventoryForm({
   warehouses,
@@ -28,23 +29,18 @@ export default function TransferInventoryForm({
     router.push("/dashboard/inventory/adjustments");
   };
   const onSubmit = async (data) => {
-    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
+    const baseUrl = config.apiPrefix + config.apiHost;
     if (isUpdate) {
-      makePutRequest(
-        setLoading,
-        `${baseUrl}/api/adjustments/transfer/${initialdata.id}`,
-        data,
-        "Transfer Adjusment",
-        redirect
-      );
+      const baseUrl =
+        config.apiPrefix +
+        config.apiHost +
+        "/api/adjustments/transfer/" +
+        initialdata.id;
+      makePutRequest(setLoading, baseUrl, data, "Transfer Adjusment", redirect);
     } else {
-      makePostRequest(
-        setLoading,
-        `${baseUrl}/api/adjustments/transfer`,
-        data,
-        "Transfer Adjusment",
-        reset
-      );
+      const baseUrl =
+        config.apiPrefix + config.apiHost + "/api/adjustments/transfer";
+      makePostRequest(setLoading, baseUrl, data, "Transfer Adjusment", reset);
     }
   };
 

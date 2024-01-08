@@ -1,4 +1,5 @@
 "use client";
+import { config } from "@/lib/config";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
@@ -16,9 +17,9 @@ export default function RegisterForm() {
   const [emailErr, setEmail] = useState("");
   const onSubmit = async (data) => {
     try {
-      const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
+      const baseUrl = config.apiPrefix + config.apiHost + "/api/user";
       setLoading(true);
-      const response = await fetch(`${baseUrl}/api/user`, {
+      const response = await fetch(baseUrl, {
         mode: "no-cors",
         method: "POST",
         headers: {

@@ -8,6 +8,7 @@ import TextareaInput from "@/components/FormInputs/TextareaInput";
 import SelectInput from "@/components/FormInputs/SelectInput";
 import { makePostRequest, makePutRequest } from "@/lib/apiRequest";
 import { useRouter } from "next/navigation";
+import { config } from "@/lib/config";
 
 export default function AddInventoryForm({
   warehouses,
@@ -29,23 +30,17 @@ export default function AddInventoryForm({
   };
 
   const onSubmit = async (data) => {
-    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
+    const baseUrl =
+      config.apiPrefix +
+      config.apiHost +
+      "/api/adjustments/add/" +
+      initialdata.id;
     if (isUpdate) {
-      makePutRequest(
-        setLoading,
-        `${baseUrl}/api/adjustments/add/${initialdata.id}`,
-        data,
-        "Add Adjusment",
-        redirect
-      );
+      makePutRequest(setLoading, baseUrl, data, "Add Adjusment", redirect);
     } else {
-      makePostRequest(
-        setLoading,
-        `${baseUrl}/api/adjustments/add`,
-        data,
-        "Add Adjusment",
-        reset
-      );
+      const baseUrl =
+        config.apiPrefix + config.apiHost + "/api/adjustments/add";
+      makePostRequest(setLoading, baseUrl, data, "Add Adjusment", reset);
     }
   };
 

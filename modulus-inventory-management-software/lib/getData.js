@@ -1,7 +1,9 @@
+import { config } from "./config";
+
 export async function getData(endpoint) {
   try {
-    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
-    const response = await fetch(`${baseUrl}/api/${endpoint}`, {
+    const baseUrl = config.apiPrefix + config.apiHost + "/api/" + endpoint;
+    const response = await fetch(baseUrl, {
       mode: "no-cors",
       cache: "no-store",
     });

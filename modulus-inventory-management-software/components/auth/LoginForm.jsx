@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { signIn } from "next-auth/react";
 import toast from "react-hot-toast";
+import { config } from "@/lib/config";
 
 export default function LoginForm() {
   const router = useRouter();
@@ -17,7 +18,7 @@ export default function LoginForm() {
   const [emailErr, setEmail] = useState("");
   const onSubmit = async (data) => {
     try {
-      const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
+      const baseUrl = config.apiPrefix + config.apiHost;
       setLoading(true);
       const loginData = await signIn("credentials", {
         ...data,

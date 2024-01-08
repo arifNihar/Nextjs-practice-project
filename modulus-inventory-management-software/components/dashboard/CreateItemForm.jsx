@@ -10,6 +10,7 @@ import SelectInput from "@/components/FormInputs/SelectInput";
 import ImageInput from "@/components/FormInputs/ImageInput";
 import { makePostRequest, makePutRequest } from "@/lib/apiRequest";
 import { useRouter } from "next/navigation";
+import { config } from "@/lib/config";
 
 export default function CreateItemForm({
   categories,
@@ -35,22 +36,18 @@ export default function CreateItemForm({
 
   const [loading, setLoading] = useState(false);
   const onSubmit = async (data) => {
-    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
     if (isUpdate) {
+      const baseUrl =
+        config.apiPrefix + config.apiHost + "/api/items/" + initialdata.id;
       if (imageUrl !== "") {
         data.imageUrl = imageUrl;
       }
-      makePutRequest(
-        setLoading,
-        `${baseUrl}/api/items/${initialdata.id}`,
-        data,
-        "Item",
-        redirect
-      );
+      makePutRequest(setLoading, baseUrl, data, "Item", redirect);
       setImageUrl("");
     } else {
+      const baseUrl = config.apiPrefix + config.apiHost + "/api/items";
       data.imageUrl = imageUrl;
-      makePostRequest(setLoading, `${baseUrl}/api/items`, data, "Item", reset);
+      makePostRequest(setLoading, baseUrl, data, "Item", reset);
       setImageUrl("");
     }
   };

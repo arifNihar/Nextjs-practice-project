@@ -3,10 +3,12 @@ import Swal from "sweetalert2";
 import { Trash2 } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { config } from "@/lib/config";
 export default function DeleteBtn({ id, endpoint }) {
   const [loading, setLoadding] = useState(false);
   const router = useRouter();
-  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
+  const baseUrl =
+    config.apiPrefix + config.apiHost + "/api/" + endpoint + "?id=" + id;
   const handleDelete = async () => {
     setLoadding(true);
     Swal.fire({
@@ -19,7 +21,7 @@ export default function DeleteBtn({ id, endpoint }) {
       confirmButtonText: "Yes, delete it!",
     }).then(async (result) => {
       if (result.isConfirmed) {
-        const res = await fetch(`${baseUrl}/api/${endpoint}?id=${id}`, {
+        const res = await fetch(baseUrl, {
           mode: "no-cors",
           method: "DELETE",
         });
