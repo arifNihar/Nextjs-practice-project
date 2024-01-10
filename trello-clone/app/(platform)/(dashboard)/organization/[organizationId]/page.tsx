@@ -1,10 +1,7 @@
-import { OrganizationSwitcher, auth } from "@clerk/nextjs";
-
 const OrganizationIdPage = () => {
-  const { userId, orgId } = auth();
   return (
     <div>
-      <OrganizationSwitcher />
+      <h2>Organization Id Page</h2>
     </div>
   );
 };
