@@ -1,13 +1,12 @@
 import authenticationVerify from "./authenticationVerify";
 
-export default (handler) => {
+export default handler = () => {
   return async (req, res) => {
     try {
-
       const route = req.url;
       // console.log(`++ ${req.method} ${route}`);
       // console.log(req.body);
-      
+
       if (route.startsWith("/api/items")) {
         await authenticationVerify(req, res);
       }
@@ -22,7 +21,6 @@ export default (handler) => {
         error: null,
         code: statusCode,
       });
-
     } catch (error) {
       const statusCode = res.statusCode ? res.statusCode : 500;
 

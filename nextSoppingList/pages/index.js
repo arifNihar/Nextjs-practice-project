@@ -1,11 +1,10 @@
-
-import ShoppingItem from '../components/ShoppingItem';
+import ShoppingItem from "../components/ShoppingItem";
+import styles from "../styles/Home.module.css";
 
 export default function Home() {
-
   return (
-    <main>
-        <ShoppingItem />
+    <main className={styles.main}>
+      <ShoppingItem />
     </main>
   );
 }
